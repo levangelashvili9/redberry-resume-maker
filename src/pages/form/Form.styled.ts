@@ -7,10 +7,10 @@ export const Container = styled.div`
 
 export const FormSide = styled.div`
   width: 1098px;
-  height: 100vh;
+  height: 100%;
   background: #f9f9f9;
 
-  padding: 50px 150px;
+  padding: 50px 150px 65px 150px;
 `;
 
 export const ResumeSide = styled.div`

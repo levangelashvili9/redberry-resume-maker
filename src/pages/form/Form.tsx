@@ -16,6 +16,7 @@ import {
 } from "./Form.styled";
 
 import ChevronLeftSVG from "/assets/chevron-left.svg";
+import { Pagination } from "./components/Pagination";
 
 export const Form = () => {
   const [step, setStep] = useState<number>(0);
@@ -45,9 +46,7 @@ export const Form = () => {
           <PageNumber>{step + 1}/3</PageNumber>
         </Heading>
         <React.Fragment>{pageDisplay()}</React.Fragment>
-        <button onClick={() => setStep(0)}>1</button>
-        <button onClick={() => setStep(1)}>2</button>
-        <button onClick={() => setStep(2)}>3</button>
+        <Pagination step={step} setStep={setStep} />
       </FormSide>
       <ResumeSide />
     </Container>

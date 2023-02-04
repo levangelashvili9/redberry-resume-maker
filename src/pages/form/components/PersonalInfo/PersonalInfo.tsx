@@ -11,7 +11,7 @@ import {
   UploadPicText,
   UploadPicButton,
   Textarea,
-} from "./PersonalInfo.styled";
+} from "../FormStyles";
 
 export const PersonalInfo = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
