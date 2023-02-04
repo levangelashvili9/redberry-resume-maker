@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { PersonalInfo } from "./components/PersonalInfo";
@@ -44,7 +44,7 @@ export const Form = () => {
           <HeadingText>{headingList[step]}</HeadingText>
           <PageNumber>{step + 1}/3</PageNumber>
         </Heading>
-        {pageDisplay()}
+        <React.Fragment>{pageDisplay()}</React.Fragment>
         <button onClick={() => setStep(0)}>1</button>
         <button onClick={() => setStep(1)}>2</button>
         <button onClick={() => setStep(2)}>3</button>
