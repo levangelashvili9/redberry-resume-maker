@@ -54,7 +54,7 @@ export const FormPage = () => {
         <React.Fragment>{pageDisplay()}</React.Fragment>
         <Pagination step={step} setStep={setStep} />
       </FormSide>
-      <Resume border={false} />
+      <Resume />
     </Container>
   );
 };
