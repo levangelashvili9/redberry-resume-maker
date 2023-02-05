@@ -13,10 +13,6 @@ export const FormSide = styled.div`
   padding: 50px 150px 65px 150px;
 `;
 
-export const ResumeSide = styled.div`
-  /* width: 822px; */
-`;
-
 export const ChevronLeft = styled.div`
   position: absolute;
   top: 57px;

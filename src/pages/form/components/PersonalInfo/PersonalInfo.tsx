@@ -1,4 +1,8 @@
-import { useRef, useState } from "react";
+import { useRef, useEffect } from "react";
+
+import { useForm } from "react-hook-form";
+import { FormTypes, Schema } from "../../FormPage.types";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
   Container,
@@ -11,32 +15,50 @@ import {
   UploadPicText,
   UploadPicButton,
   Textarea,
-} from "../FormStyles";
+} from "../../../../common/styles/FormStyles";
 
-export const PersonalInfo = () => {
+type Props = {
+  data: FormTypes;
+  setData: React.Dispatch<React.SetStateAction<FormTypes>>;
+};
+
+export const PersonalInfo: React.FC<Props> = ({ data, setData }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // const file = event.target.files?.[0];
-    // setSelectedFile(file || null);
-  };
 
   const handleFileClick = () => {
     fileInputRef.current?.click();
   };
+
+  const { register, watch } = useForm<FormTypes>({
+    resolver: zodResolver(Schema),
+  });
+
+  useEffect(() => {
+    const subscription = watch((values) => {
+      setData({
+        ...data,
+        name: values.name || "",
+        surname: values.surname || "",
+        email: values.email || "",
+      });
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [watch]);
 
   return (
     <Container>
       <DoubleInput>
         <InputElement>
           <Label>სახელი</Label>
-          <Input placeholder="ანზორ" />
+          <Input placeholder="ანზორ" {...register("name")} />
           <Hint>მინიმუმ 2 ასო, ქართული ასოები</Hint>
         </InputElement>
         <InputElement>
           <Label>გვარი</Label>
-          <Input placeholder="მუმლაძე" />
+          <Input placeholder="მუმლაძე" {...register("surname")} />
           <Hint>მინიმუმ 2 ასო, ქართული ასოები</Hint>
         </InputElement>
       </DoubleInput>
@@ -53,7 +75,7 @@ export const PersonalInfo = () => {
       </InputElement>
       <InputElement>
         <Label>ელ.ფოსტა</Label>
-        <Input placeholder="anzorr666@redberry.ge" />
+        <Input placeholder="anzorr666@redberry.ge" {...register("email")} />
         <Hint>უნდა მთავრდებოდეს @redberry.ge-ით</Hint>
       </InputElement>
       <InputElement>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { PersonalInfo } from "./components/PersonalInfo";
 import { Experience } from "./components/Experience";
 import { Education } from "./components/Education";
+import { Resume } from "../../common/components/Resume";
 
 import {
   Container,
@@ -11,20 +12,25 @@ import {
   ChevronLeft,
   Heading,
   HeadingText,
-  ResumeSide,
   PageNumber,
-} from "./Form.styled";
+} from "./FormPage.styled";
+import { FormTypes } from "./FormPage.types";
 
 import ChevronLeftSVG from "/assets/chevron-left.svg";
 import { Pagination } from "./components/Pagination";
 
-export const Form = () => {
+export const FormPage = () => {
   const [step, setStep] = useState<number>(0);
+  const [data, setData] = useState<FormTypes>({
+    name: "",
+    surname: "",
+    email: "",
+  });
   const headingList: string[] = ["პირადი ინფო", "გამოცდილება", "განათლება"];
 
   const pageDisplay = (): JSX.Element | null => {
     if (step === 0) {
-      return <PersonalInfo />;
+      return <PersonalInfo data={data} setData={setData} />;
     } else if (step === 1) {
       return <Experience />;
     } else if (step === 2) {
@@ -48,7 +54,7 @@ export const Form = () => {
         <React.Fragment>{pageDisplay()}</React.Fragment>
         <Pagination step={step} setStep={setStep} />
       </FormSide>
-      <ResumeSide />
+      <Resume border={false} />
     </Container>
   );
 };
