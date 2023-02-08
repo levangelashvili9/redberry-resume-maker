@@ -17,24 +17,34 @@ import {
 import { FormTypes } from "./FormPage.types";
 
 import ChevronLeftSVG from "/assets/chevron-left.svg";
-import { Pagination } from "./components/Pagination";
 
 export const FormPage = () => {
   const [step, setStep] = useState<number>(0);
+  const [file, setFile] = useState("");
   const [data, setData] = useState<FormTypes>({
     name: "",
     surname: "",
+    aboutMe: "",
     email: "",
+    number: "",
   });
   const headingList: string[] = ["პირადი ინფო", "გამოცდილება", "განათლება"];
 
   const pageDisplay = (): JSX.Element | null => {
     if (step === 0) {
-      return <PersonalInfo data={data} setData={setData} />;
+      return (
+        <PersonalInfo
+          data={data}
+          setData={setData}
+          file={file}
+          setFile={setFile}
+          setStep={setStep}
+        />
+      );
     } else if (step === 1) {
-      return <Experience />;
+      return <Experience setStep={setStep} />;
     } else if (step === 2) {
-      return <Education />;
+      return <Education setStep={setStep} />;
     }
     return null;
   };
@@ -42,6 +52,7 @@ export const FormPage = () => {
   return (
     <Container>
       <FormSide>
+        {file ? <img src={file} alt="" /> : null}
         <ChevronLeft>
           <Link to="/">
             <img src={ChevronLeftSVG} alt="" />
@@ -52,7 +63,6 @@ export const FormPage = () => {
           <PageNumber>{step + 1}/3</PageNumber>
         </Heading>
         <React.Fragment>{pageDisplay()}</React.Fragment>
-        <Pagination step={step} setStep={setStep} />
       </FormSide>
       <Resume />
     </Container>
