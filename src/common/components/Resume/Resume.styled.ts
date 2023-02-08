@@ -24,6 +24,7 @@ export const Container = styled.div<ContainerProps>`
 
 export const MainSection = styled.div`
   display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid #c8c8c8;
   padding-bottom: 20px;
 `;

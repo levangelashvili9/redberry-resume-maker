@@ -15,40 +15,39 @@ import {
 
 import EmailSVG from "/assets/email.svg";
 import PhoneSVG from "/assets/phone.svg";
-import PlaceholderPhoto from "/assets/placeholder-photo.png";
 import ThirdLogoSVG from "/assets/logo-3.svg";
-import { FormTypes } from "../../../pages/form/FormPage.types";
+import { InfoTypes } from "../../types";
 
 type Props = {
   border?: boolean;
-  data: FormTypes;
+  infoData: InfoTypes;
   file: string;
 };
 
-export const Resume: React.FC<Props> = ({ border, data, file }) => {
+export const Resume: React.FC<Props> = ({ border, infoData, file }) => {
   return (
     <Container border={border}>
       <MainSection>
         <div>
           <FullName>
-            {data.name} {data.surname}
+            {infoData.name} {infoData.surname}
           </FullName>
-          {data.email ? (
+          {infoData.email ? (
             <ContactInfo margin={"10px"}>
               <img src={EmailSVG} alt="" />
-              <ContactInfoText>{data.email}</ContactInfoText>
+              <ContactInfoText>{infoData.email}</ContactInfoText>
             </ContactInfo>
           ) : null}
-          {data.number ? (
+          {infoData.number ? (
             <ContactInfo margin={"34px"}>
               <img src={PhoneSVG} alt="" />
-              <ContactInfoText>+995 597 63 45 16</ContactInfoText>
+              <ContactInfoText>{infoData.number}</ContactInfoText>
             </ContactInfo>
           ) : null}
-          {data.aboutMe ? (
+          {infoData.aboutMe ? (
             <>
               <Heading>ჩემ შესახებ</Heading>
-              <ResumeText>{data.aboutMe}</ResumeText>
+              <ResumeText>{infoData.aboutMe}</ResumeText>
             </>
           ) : null}
         </div>

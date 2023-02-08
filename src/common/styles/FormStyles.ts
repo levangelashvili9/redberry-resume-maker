@@ -201,3 +201,5 @@ export const NextButton = styled(Button)`
 export const BackButton = styled(Button)`
   width: 113px;
 `;
+
+export const Field = styled.div``;

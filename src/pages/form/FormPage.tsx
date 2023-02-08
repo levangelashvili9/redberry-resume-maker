@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import useLocalStorage from "../../common/hooks/useLocalStorage";
 
 import { PersonalInfo } from "./components/PersonalInfo";
 import { Experience } from "./components/Experience";
@@ -15,36 +14,50 @@ import {
   HeadingText,
   PageNumber,
 } from "./FormPage.styled";
-import { FormTypes } from "./FormPage.types";
+import { ExperienceTypes, InfoTypes } from "../../common/types";
 
 import ChevronLeftSVG from "/assets/chevron-left.svg";
 
-export const FormPage = () => {
-  const [step, setStep] = useState<number>(0);
-  const [file, setFile] = useLocalStorage("file", "");
+type Props = {
+  file: string;
+  setFile: React.Dispatch<React.SetStateAction<string>>;
+  infoData: InfoTypes;
+  setInfoData: React.Dispatch<React.SetStateAction<InfoTypes>>;
+  experienceData: ExperienceTypes;
+  setExperienceData: React.Dispatch<React.SetStateAction<ExperienceTypes>>;
+};
 
-  const [data, setData] = useLocalStorage<FormTypes>("data", {
-    name: "",
-    surname: "",
-    aboutMe: "",
-    email: "",
-    number: "",
-  });
+export const FormPage: React.FC<Props> = ({
+  file,
+  setFile,
+  infoData,
+  setInfoData,
+  experienceData,
+  setExperienceData,
+}) => {
+  const [step, setStep] = useState<number>(0);
+
   const headingList: string[] = ["პირადი ინფო", "გამოცდილება", "განათლება"];
 
   const pageDisplay = (): JSX.Element | null => {
     if (step === 0) {
       return (
         <PersonalInfo
-          data={data}
-          setData={setData}
+          infoData={infoData}
+          setInfoData={setInfoData}
           file={file}
           setFile={setFile}
           setStep={setStep}
         />
       );
     } else if (step === 1) {
-      return <Experience setStep={setStep} />;
+      return (
+        <Experience
+          experienceData={experienceData}
+          setExperienceData={setExperienceData}
+          setStep={setStep}
+        />
+      );
     } else if (step === 2) {
       return <Education setStep={setStep} />;
     }
@@ -52,8 +65,7 @@ export const FormPage = () => {
   };
 
   const goBackHandler = () => {
-    setData({
-      ...data,
+    setInfoData({
       name: "",
       surname: "",
       aboutMe: "",
@@ -77,7 +89,7 @@ export const FormPage = () => {
         </Heading>
         <React.Fragment>{pageDisplay()}</React.Fragment>
       </FormSide>
-      <Resume data={data} file={file} />
+      <Resume infoData={infoData} file={file} />
     </Container>
   );
 };

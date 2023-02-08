@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { FieldError, SubmitHandler, useForm } from "react-hook-form";
-import { FormTypes, Schema } from "../../FormPage.types";
+import { InfoTypes, InfoSchema } from "../../../../common/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -26,16 +26,16 @@ import ErrorSVG from "/assets/error.svg";
 import ValidatedSVG from "/assets/validated.svg";
 
 type Props = {
-  data: FormTypes;
-  setData: React.Dispatch<React.SetStateAction<FormTypes>>;
+  infoData: InfoTypes;
+  setInfoData: React.Dispatch<React.SetStateAction<InfoTypes>>;
   file: string;
   setFile: React.Dispatch<React.SetStateAction<string>>;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const PersonalInfo: React.FC<Props> = ({
-  data,
-  setData,
+  infoData,
+  setInfoData,
   setStep,
   file,
   setFile,
@@ -45,29 +45,12 @@ export const PersonalInfo: React.FC<Props> = ({
     register,
     watch,
     formState: { errors },
-  } = useForm<FormTypes>({
-    resolver: zodResolver(Schema),
+  } = useForm<InfoTypes>({
+    resolver: zodResolver(InfoSchema),
     mode: "onChange",
   });
 
   const [fileError, setFileError] = useState<string>("");
-
-  useEffect(() => {
-    const subscription = watch((values) => {
-      setData({
-        ...data,
-        name: values.name || "",
-        surname: values.surname || "",
-        aboutMe: values.aboutMe || "",
-        email: values.email || "",
-        number: values.number || "",
-      });
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [watch]);
 
   const convert2base64 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -87,15 +70,15 @@ export const PersonalInfo: React.FC<Props> = ({
 
   const statusChanger = (
     error: FieldError | undefined,
-    inputName: keyof typeof data
+    inputName: keyof typeof infoData
   ) => {
-    return error ? "error" : data[inputName] ? "validated" : "default";
+    return error ? "error" : infoData[inputName] ? "validated" : "default";
   };
 
-  const onSubmit: SubmitHandler<FormTypes> = (dataFromInputs) => {
+  const onSubmit: SubmitHandler<InfoTypes> = (data) => {
     file && setStep(1);
 
-    console.log(dataFromInputs);
+    console.log(data);
   };
 
   return (
@@ -106,8 +89,12 @@ export const PersonalInfo: React.FC<Props> = ({
           <InputDiv>
             <Input
               placeholder="ანზორ"
-              {...register("name")}
-              defaultValue={data.name}
+              {...register("name", {
+                onChange: (e) => {
+                  setInfoData({ ...infoData, name: e.target.value });
+                },
+              })}
+              defaultValue={infoData.name}
               status={statusChanger(errors.name, "name")}
             />
             {errors.name ? (
@@ -116,7 +103,7 @@ export const PersonalInfo: React.FC<Props> = ({
               <ValidatedImg
                 src={ValidatedSVG}
                 alt=""
-                isHidden={data.name === ""}
+                isHidden={infoData.name === ""}
               />
             )}
           </InputDiv>
@@ -128,8 +115,12 @@ export const PersonalInfo: React.FC<Props> = ({
           <InputDiv>
             <Input
               placeholder="მუმლაძე"
-              {...register("surname")}
-              defaultValue={data.surname}
+              {...register("surname", {
+                onChange: (e) => {
+                  setInfoData({ ...infoData, surname: e.target.value });
+                },
+              })}
+              defaultValue={infoData.surname}
               status={statusChanger(errors.surname, "surname")}
             />
             {errors.surname ? (
@@ -138,7 +129,7 @@ export const PersonalInfo: React.FC<Props> = ({
               <ValidatedImg
                 src={ValidatedSVG}
                 alt=""
-                isHidden={data.surname === ""}
+                isHidden={infoData.surname === ""}
               />
             )}
           </InputDiv>
@@ -162,7 +153,12 @@ export const PersonalInfo: React.FC<Props> = ({
         <Label>ჩემ შესახებ (არასავალდებულო)</Label>
         <Textarea
           placeholder="ზოგადი ინფო შენ შესახებ"
-          {...register("aboutMe")}
+          {...register("aboutMe", {
+            onChange: (e) => {
+              setInfoData({ ...infoData, aboutMe: e.target.value });
+            },
+          })}
+          defaultValue={infoData.aboutMe}
         />
       </InputElement>
 
@@ -171,8 +167,12 @@ export const PersonalInfo: React.FC<Props> = ({
         <InputDiv>
           <Input
             placeholder="anzorr666@redberry.ge"
-            {...register("email")}
-            defaultValue={data.email}
+            {...register("email", {
+              onChange: (e) => {
+                setInfoData({ ...infoData, email: e.target.value });
+              },
+            })}
+            defaultValue={infoData.email}
             status={statusChanger(errors.email, "email")}
           />
           {errors.email ? (
@@ -181,7 +181,7 @@ export const PersonalInfo: React.FC<Props> = ({
             <ValidatedImg
               src={ValidatedSVG}
               alt=""
-              isHidden={data.email === ""}
+              isHidden={infoData.email === ""}
             />
           )}
         </InputDiv>
@@ -193,8 +193,12 @@ export const PersonalInfo: React.FC<Props> = ({
         <InputDiv>
           <Input
             placeholder="+995 551 12 34 56"
-            {...register("number")}
-            defaultValue={data.number}
+            {...register("number", {
+              onChange: (e) => {
+                setInfoData({ ...infoData, number: e.target.value });
+              },
+            })}
+            defaultValue={infoData.number}
             status={statusChanger(errors.number, "number")}
           />
           {errors.number ? (
@@ -203,7 +207,7 @@ export const PersonalInfo: React.FC<Props> = ({
             <ValidatedImg
               src={ValidatedSVG}
               alt=""
-              isHidden={data.number === ""}
+              isHidden={infoData.number === ""}
             />
           )}
         </InputDiv>

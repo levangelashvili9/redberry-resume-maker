@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Resume } from "../../common/components/Resume";
+import { InfoTypes } from "../../common/types";
 import {
   ChevronImage,
   Container,
@@ -13,7 +14,12 @@ import {
 import ChevronLeftSVG from "/assets/chevron-left.svg";
 import CrossSVG from "/assets/cross.svg";
 
-export const ResumePage = () => {
+type Props = {
+  file: string;
+  infoData: InfoTypes;
+};
+
+export const ResumePage: React.FC<Props> = ({ file, infoData }) => {
   const [messageIsOpen, setMessageIsOpen] = useState<boolean>(true);
 
   return (
@@ -21,7 +27,7 @@ export const ResumePage = () => {
       <Link to="/">
         <ChevronImage src={ChevronLeftSVG} alt="" />
       </Link>
-      <Resume border />
+      <Resume border file={file} infoData={infoData} />
       <SuccessMessage messageIsOpen={messageIsOpen}>
         <SuccessMessageText>რეზიუმე წარმატებით გაიგზავნა 🎉</SuccessMessageText>
         <CrossImg
