@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useLocalStorage from "../../common/hooks/useLocalStorage";
 
 import { PersonalInfo } from "./components/PersonalInfo";
 import { Experience } from "./components/Experience";
@@ -20,8 +21,9 @@ import ChevronLeftSVG from "/assets/chevron-left.svg";
 
 export const FormPage = () => {
   const [step, setStep] = useState<number>(0);
-  const [file, setFile] = useState("");
-  const [data, setData] = useState<FormTypes>({
+  const [file, setFile] = useLocalStorage("file", "");
+
+  const [data, setData] = useLocalStorage<FormTypes>("data", {
     name: "",
     surname: "",
     aboutMe: "",
@@ -49,12 +51,23 @@ export const FormPage = () => {
     return null;
   };
 
+  const goBackHandler = () => {
+    setData({
+      ...data,
+      name: "",
+      surname: "",
+      aboutMe: "",
+      email: "",
+      number: "",
+    });
+    setFile("");
+  };
+
   return (
     <Container>
       <FormSide>
-        {file ? <img src={file} alt="" /> : null}
         <ChevronLeft>
-          <Link to="/">
+          <Link to="/" onClick={goBackHandler}>
             <img src={ChevronLeftSVG} alt="" />
           </Link>
         </ChevronLeft>
@@ -64,7 +77,7 @@ export const FormPage = () => {
         </Heading>
         <React.Fragment>{pageDisplay()}</React.Fragment>
       </FormSide>
-      <Resume />
+      <Resume data={data} file={file} />
     </Container>
   );
 };

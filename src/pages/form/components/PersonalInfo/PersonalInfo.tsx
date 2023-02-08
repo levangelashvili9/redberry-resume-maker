@@ -107,6 +107,7 @@ export const PersonalInfo: React.FC<Props> = ({
             <Input
               placeholder="ანზორ"
               {...register("name")}
+              defaultValue={data.name}
               status={statusChanger(errors.name, "name")}
             />
             {errors.name ? (
@@ -128,6 +129,7 @@ export const PersonalInfo: React.FC<Props> = ({
             <Input
               placeholder="მუმლაძე"
               {...register("surname")}
+              defaultValue={data.surname}
               status={statusChanger(errors.surname, "surname")}
             />
             {errors.surname ? (
@@ -170,6 +172,7 @@ export const PersonalInfo: React.FC<Props> = ({
           <Input
             placeholder="anzorr666@redberry.ge"
             {...register("email")}
+            defaultValue={data.email}
             status={statusChanger(errors.email, "email")}
           />
           {errors.email ? (
@@ -191,6 +194,7 @@ export const PersonalInfo: React.FC<Props> = ({
           <Input
             placeholder="+995 551 12 34 56"
             {...register("number")}
+            defaultValue={data.number}
             status={statusChanger(errors.number, "number")}
           />
           {errors.number ? (
@@ -209,7 +213,7 @@ export const PersonalInfo: React.FC<Props> = ({
       <PageController>
         <NextButton
           type="submit"
-          onClick={() => file || setFileError("Please, upload photo")}
+          onClick={() => file || setFileError("Please, select a file")}
         >
           შემდეგი
         </NextButton>

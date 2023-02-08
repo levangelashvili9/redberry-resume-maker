@@ -17,34 +17,42 @@ import EmailSVG from "/assets/email.svg";
 import PhoneSVG from "/assets/phone.svg";
 import PlaceholderPhoto from "/assets/placeholder-photo.png";
 import ThirdLogoSVG from "/assets/logo-3.svg";
+import { FormTypes } from "../../../pages/form/FormPage.types";
 
 type Props = {
   border?: boolean;
+  data: FormTypes;
+  file: string;
 };
 
-export const Resume: React.FC<Props> = ({ border }) => {
+export const Resume: React.FC<Props> = ({ border, data, file }) => {
   return (
     <Container border={border}>
       <MainSection>
         <div>
-          <FullName>ანზორ მუმლაძე</FullName>
-          <ContactInfo margin={"10px"}>
-            <img src={EmailSVG} alt="" />
-            <ContactInfoText>anzorr666@redberry.ge</ContactInfoText>
-          </ContactInfo>
-          <ContactInfo margin={"34px"}>
-            <img src={PhoneSVG} alt="" />
-            <ContactInfoText>+995 597 63 45 16</ContactInfoText>
-          </ContactInfo>
-          <Heading>ჩემ შესახებ</Heading>
-          <ResumeText>
-            ძალიან მიყვარს დიზაინის კეთება. დილით ადრე რომ ავდგები
-            გამამხნევებელი ვარჯიშების მაგიერ დიზაინს ვაკეთებ.
-          </ResumeText>
+          <FullName>
+            {data.name} {data.surname}
+          </FullName>
+          {data.email ? (
+            <ContactInfo margin={"10px"}>
+              <img src={EmailSVG} alt="" />
+              <ContactInfoText>{data.email}</ContactInfoText>
+            </ContactInfo>
+          ) : null}
+          {data.number ? (
+            <ContactInfo margin={"34px"}>
+              <img src={PhoneSVG} alt="" />
+              <ContactInfoText>+995 597 63 45 16</ContactInfoText>
+            </ContactInfo>
+          ) : null}
+          {data.aboutMe ? (
+            <>
+              <Heading>ჩემ შესახებ</Heading>
+              <ResumeText>{data.aboutMe}</ResumeText>
+            </>
+          ) : null}
         </div>
-        <Photo>
-          <img src={PlaceholderPhoto} alt="" />
-        </Photo>
+        {file ? <Photo src={file} alt="" /> : null}
       </MainSection>
       <ResumeSection>
         <Heading>გამოცდილება</Heading>
