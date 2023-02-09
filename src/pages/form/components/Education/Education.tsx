@@ -78,13 +78,10 @@ export const Education: React.FC<Props> = ({
     });
   };
 
-  const onSubmit: SubmitHandler<DataTypes> = (data) => {
-    console.log(data);
-  };
+  const onSubmit: SubmitHandler<DataTypes> = (data) => {};
 
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
-      <button onClick={() => console.log(infoData.universities)}>CLICK</button>
       {fields.map((field, index) => (
         <Field key={field.id}>
           <InputElement>

@@ -77,7 +77,6 @@ export const Experience: React.FC<Props> = ({
 
   const onSubmit: SubmitHandler<DataTypes> = (data) => {
     setStep(2);
-    console.log(data);
   };
 
   return (

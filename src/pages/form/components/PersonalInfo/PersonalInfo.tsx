@@ -68,8 +68,6 @@ export const PersonalInfo: React.FC<Props> = ({
 
   const onSubmit: SubmitHandler<DataTypes> = (data) => {
     file && setStep(1);
-
-    console.log(data);
   };
 
   return (
