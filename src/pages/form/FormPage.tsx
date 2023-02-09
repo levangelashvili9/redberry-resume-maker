@@ -17,6 +17,7 @@ import {
 import { DataTypes } from "../../common/types";
 
 import ChevronLeftSVG from "/assets/chevron-left.svg";
+import useLocalStorage from "../../common/hooks/useLocalStorage";
 
 type Props = {
   file: string;
@@ -31,7 +32,7 @@ export const FormPage: React.FC<Props> = ({
   infoData,
   setInfoData,
 }) => {
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = useLocalStorage<number>("step", 0);
 
   const headingList: string[] = ["პირადი ინფო", "გამოცდილება", "განათლება"];
 

@@ -1,4 +1,5 @@
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
+import useFetchDropdown from "../../../../common/hooks/useFetchDropdown";
 
 import {
   Container,
@@ -48,6 +49,8 @@ export const Education: React.FC<Props> = ({
     },
   });
 
+  const degreesList = useFetchDropdown();
+
   const { fields, append } = useFieldArray({
     name: "universities",
     control,
@@ -81,6 +84,7 @@ export const Education: React.FC<Props> = ({
 
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
+      <button onClick={() => console.log(infoData.universities)}>CLICK</button>
       {fields.map((field, index) => (
         <Field key={field.id}>
           <InputElement>
@@ -124,6 +128,7 @@ export const Education: React.FC<Props> = ({
             <InputElement>
               <Label>ხარისხი</Label>
               <Select
+                value={infoData.universities[index].degree}
                 status={statusChanger(
                   errors.universities && errors.universities[index]?.degree,
                   infoData.universities[index].degree
@@ -142,9 +147,16 @@ export const Education: React.FC<Props> = ({
                   },
                 })}
               >
-                <Option value="">აირჩიეთ ხარისხი</Option>
-                <Option value="bachelor">საშუალო სკოლის დიპლომი</Option>
-                <Option value="master">ზოგადსაგანმანათლებლო დიპლომი</Option>
+                <Option value="" disabled>
+                  აირჩიეთ ხარისხი
+                </Option>
+                {degreesList
+                  ? degreesList.map((degree) => (
+                      <Option key={degree.id} value={degree.title}>
+                        {degree.title}
+                      </Option>
+                    ))
+                  : null}
               </Select>
             </InputElement>
 
