@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Resume } from "../../common/components/Resume";
-import { InfoTypes } from "../../common/types";
+import { DataTypes } from "../../common/types";
 import {
   ChevronImage,
   Container,
@@ -16,7 +16,7 @@ import CrossSVG from "/assets/cross.svg";
 
 type Props = {
   file: string;
-  infoData: InfoTypes;
+  infoData: DataTypes;
 };
 
 export const ResumePage: React.FC<Props> = ({ file, infoData }) => {

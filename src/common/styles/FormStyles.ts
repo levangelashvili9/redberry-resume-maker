@@ -147,7 +147,8 @@ export const UploadPicButton = styled.label`
   cursor: pointer;
 `;
 
-export const Textarea = styled.textarea`
+export const Textarea = styled.textarea<StatusProps>`
+  width: 100%;
   height: 103px;
 
   padding: 12px 16px;
@@ -157,11 +158,23 @@ export const Textarea = styled.textarea`
   line-height: 21px;
 
   color: #000000;
-  border: 1px solid #bcbcbc;
   border-radius: 4px;
   resize: none;
 
+  border: 1px solid
+    ${(props) => {
+      switch (props.status) {
+        case "validated":
+          return "#98E37E";
+        case "error":
+          return "#EF5050";
+        default:
+          return "#BCBCBC";
+      }
+    }};
+
   &:focus {
+    border: none;
     outline: 2px solid #bcbcbc;
   }
 
@@ -202,4 +215,65 @@ export const BackButton = styled(Button)`
   width: 113px;
 `;
 
-export const Field = styled.div``;
+export const Field = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 31px;
+
+  border-bottom: 1px solid #c1c1c1;
+  padding-bottom: 60px;
+  margin-bottom: 30px;
+`;
+
+export const AddField = styled.button`
+  width: 289px;
+  height: 48px;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #ffffff;
+
+  background: #62a1eb;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+`;
+
+export const Select = styled.select<StatusProps>`
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+
+  border: 1px solid
+    ${(props) => {
+      switch (props.status) {
+        case "validated":
+          return "#98E37E";
+        case "error":
+          return "#EF5050";
+        default:
+          return "#BCBCBC";
+      }
+    }};
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+
+  color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+
+  &:focus {
+    border: none;
+    outline: 2px solid #bcbcbc;
+  }
+`;
+
+export const Option = styled.option`
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+
+  color: #1a1a1a;
+`;

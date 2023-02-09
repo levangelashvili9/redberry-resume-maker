@@ -14,17 +14,15 @@ import {
   HeadingText,
   PageNumber,
 } from "./FormPage.styled";
-import { ExperienceTypes, InfoTypes } from "../../common/types";
+import { DataTypes } from "../../common/types";
 
 import ChevronLeftSVG from "/assets/chevron-left.svg";
 
 type Props = {
   file: string;
   setFile: React.Dispatch<React.SetStateAction<string>>;
-  infoData: InfoTypes;
-  setInfoData: React.Dispatch<React.SetStateAction<InfoTypes>>;
-  experienceData: ExperienceTypes;
-  setExperienceData: React.Dispatch<React.SetStateAction<ExperienceTypes>>;
+  infoData: DataTypes;
+  setInfoData: React.Dispatch<React.SetStateAction<DataTypes>>;
 };
 
 export const FormPage: React.FC<Props> = ({
@@ -32,8 +30,6 @@ export const FormPage: React.FC<Props> = ({
   setFile,
   infoData,
   setInfoData,
-  experienceData,
-  setExperienceData,
 }) => {
   const [step, setStep] = useState<number>(0);
 
@@ -53,24 +49,41 @@ export const FormPage: React.FC<Props> = ({
     } else if (step === 1) {
       return (
         <Experience
-          experienceData={experienceData}
-          setExperienceData={setExperienceData}
+          infoData={infoData}
+          setInfoData={setInfoData}
           setStep={setStep}
         />
       );
     } else if (step === 2) {
-      return <Education setStep={setStep} />;
+      return (
+        <Education
+          infoData={infoData}
+          setInfoData={setInfoData}
+          setStep={setStep}
+        />
+      );
     }
     return null;
   };
 
   const goBackHandler = () => {
     setInfoData({
+      ...infoData,
       name: "",
       surname: "",
       aboutMe: "",
       email: "",
       number: "",
+      jobs: [
+        {
+          position: "",
+          company: "",
+          startDate: "",
+          endDate: "",
+          description: "",
+        },
+      ],
+      universities: [{ name: "", degree: "", endDate: "", description: "" }],
     });
     setFile("");
   };

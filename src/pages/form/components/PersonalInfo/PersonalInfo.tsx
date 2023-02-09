@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import { FieldError, SubmitHandler, useForm } from "react-hook-form";
-import { InfoTypes, InfoSchema } from "../../../../common/types";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { DataTypes } from "../../../../common/types";
+import { statusChanger } from "../../../../common/utils/statusChanger";
 
 import {
   Container,
@@ -26,8 +26,8 @@ import ErrorSVG from "/assets/error.svg";
 import ValidatedSVG from "/assets/validated.svg";
 
 type Props = {
-  infoData: InfoTypes;
-  setInfoData: React.Dispatch<React.SetStateAction<InfoTypes>>;
+  infoData: DataTypes;
+  setInfoData: React.Dispatch<React.SetStateAction<DataTypes>>;
   file: string;
   setFile: React.Dispatch<React.SetStateAction<string>>;
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -43,10 +43,8 @@ export const PersonalInfo: React.FC<Props> = ({
   const {
     handleSubmit,
     register,
-    watch,
     formState: { errors },
-  } = useForm<InfoTypes>({
-    resolver: zodResolver(InfoSchema),
+  } = useForm<DataTypes>({
     mode: "onChange",
   });
 
@@ -68,14 +66,7 @@ export const PersonalInfo: React.FC<Props> = ({
     }
   };
 
-  const statusChanger = (
-    error: FieldError | undefined,
-    inputName: keyof typeof infoData
-  ) => {
-    return error ? "error" : infoData[inputName] ? "validated" : "default";
-  };
-
-  const onSubmit: SubmitHandler<InfoTypes> = (data) => {
+  const onSubmit: SubmitHandler<DataTypes> = (data) => {
     file && setStep(1);
 
     console.log(data);
@@ -90,12 +81,15 @@ export const PersonalInfo: React.FC<Props> = ({
             <Input
               placeholder="ანზორ"
               {...register("name", {
+                required: true,
+                minLength: 2,
+                pattern: /^[ა-ჰ]+$/,
                 onChange: (e) => {
                   setInfoData({ ...infoData, name: e.target.value });
                 },
               })}
               defaultValue={infoData.name}
-              status={statusChanger(errors.name, "name")}
+              status={statusChanger(errors.name, infoData.name)}
             />
             {errors.name ? (
               <ErrorImg src={ErrorSVG} alt="" />
@@ -116,12 +110,15 @@ export const PersonalInfo: React.FC<Props> = ({
             <Input
               placeholder="მუმლაძე"
               {...register("surname", {
+                required: true,
+                minLength: 2,
+                pattern: /^[ა-ჰ]+$/,
                 onChange: (e) => {
                   setInfoData({ ...infoData, surname: e.target.value });
                 },
               })}
               defaultValue={infoData.surname}
-              status={statusChanger(errors.surname, "surname")}
+              status={statusChanger(errors.surname, infoData.surname)}
             />
             {errors.surname ? (
               <ErrorImg src={ErrorSVG} alt="" />
@@ -168,12 +165,14 @@ export const PersonalInfo: React.FC<Props> = ({
           <Input
             placeholder="anzorr666@redberry.ge"
             {...register("email", {
+              required: true,
+              pattern: /^.*@redberry.ge$/,
               onChange: (e) => {
                 setInfoData({ ...infoData, email: e.target.value });
               },
             })}
             defaultValue={infoData.email}
-            status={statusChanger(errors.email, "email")}
+            status={statusChanger(errors.email, infoData.email)}
           />
           {errors.email ? (
             <ErrorImg src={ErrorSVG} alt="" />
@@ -194,12 +193,14 @@ export const PersonalInfo: React.FC<Props> = ({
           <Input
             placeholder="+995 551 12 34 56"
             {...register("number", {
+              required: true,
+              pattern: /^\+995\s5\d{2}\s\d{2}\s\d{2}\s\d{2}$/,
               onChange: (e) => {
                 setInfoData({ ...infoData, number: e.target.value });
               },
             })}
             defaultValue={infoData.number}
-            status={statusChanger(errors.number, "number")}
+            status={statusChanger(errors.number, infoData.number)}
           />
           {errors.number ? (
             <ErrorImg src={ErrorSVG} alt="" />

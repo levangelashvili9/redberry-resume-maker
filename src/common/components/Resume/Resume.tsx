@@ -11,16 +11,18 @@ import {
   Photo,
   MainSection,
   LogoImage,
+  List,
 } from "./Resume.styled";
 
 import EmailSVG from "/assets/email.svg";
 import PhoneSVG from "/assets/phone.svg";
 import ThirdLogoSVG from "/assets/logo-3.svg";
-import { InfoTypes } from "../../types";
+import { DataTypes } from "../../types";
+import React from "react";
 
 type Props = {
   border?: boolean;
-  infoData: InfoTypes;
+  infoData: DataTypes;
   file: string;
 };
 
@@ -53,16 +55,25 @@ export const Resume: React.FC<Props> = ({ border, infoData, file }) => {
         </div>
         {file ? <Photo src={file} alt="" /> : null}
       </MainSection>
+
       <ResumeSection>
         <Heading>გამოცდილება</Heading>
-        <SubHeading>React Native Developer, Microsoft</SubHeading>
-        <Date>2020-09-23 - 2020-09-23</Date>
-        <ResumeText isCapitalized>
-          Experienced Javascript Native Developer with 5 years in the industry.
-          proficient withreact. Used problem-solving aptitude to encahge
-          application performance by 14%.created data visualisation tools and
-          integrated designs.
-        </ResumeText>
+        <List>
+          {infoData.jobs.map((job, index) => (
+            <div key={index}>
+              <SubHeading>
+                {infoData.jobs[index].position}, {infoData.jobs[index].company}
+              </SubHeading>
+              <Date>
+                {infoData.jobs[index].startDate} -{" "}
+                {infoData.jobs[index].endDate}
+              </Date>
+              <ResumeText isCapitalized>
+                {infoData.jobs[index].description}
+              </ResumeText>
+            </div>
+          ))}
+        </List>
       </ResumeSection>
       <ResumeSection>
         <Heading>განათლება</Heading>

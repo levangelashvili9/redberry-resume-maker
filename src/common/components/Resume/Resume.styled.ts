@@ -77,6 +77,12 @@ export const Heading = styled.h3`
   color: #f93b1d;
 `;
 
+export const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
+
 export const ResumeText = styled.p<ResumeTextProps>`
   font-weight: 400;
   font-size: 16px;

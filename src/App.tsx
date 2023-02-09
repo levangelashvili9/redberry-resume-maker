@@ -5,25 +5,28 @@ import { FormPage } from "./pages/form";
 import { ResumePage } from "./pages/resume";
 
 import useLocalStorage from "./common/hooks/useLocalStorage";
-import { ExperienceTypes, InfoTypes } from "./common/types";
+import { DataTypes } from "./common/types";
 
 function App() {
   const [file, setFile] = useLocalStorage("file", "");
 
-  const [infoData, setInfoData] = useLocalStorage<InfoTypes>("infoData", {
+  const [infoData, setInfoData] = useLocalStorage<DataTypes>("infoData", {
     name: "",
     surname: "",
     aboutMe: "",
     email: "",
     number: "",
+    jobs: [
+      {
+        position: "",
+        company: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+      },
+    ],
+    universities: [{ name: "", degree: "", endDate: "", description: "" }],
   });
-
-  const [experienceData, setExperienceData] = useLocalStorage<ExperienceTypes>(
-    "experienceData",
-    {
-      jobs: [{ position: "" }],
-    }
-  );
 
   return (
     <Routes>
@@ -36,8 +39,6 @@ function App() {
             setFile={setFile}
             infoData={infoData}
             setInfoData={setInfoData}
-            experienceData={experienceData}
-            setExperienceData={setExperienceData}
           />
         }
       />
