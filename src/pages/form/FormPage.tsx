@@ -72,21 +72,24 @@ export const FormPage: React.FC<Props> = ({
       ...infoData,
       name: "",
       surname: "",
-      aboutMe: "",
+      about_me: "",
       email: "",
-      number: "",
-      jobs: [
+      phone_number: "",
+      experiences: [
         {
           position: "",
-          company: "",
-          startDate: "",
-          endDate: "",
+          employer: "",
+          start_date: "",
+          due_date: "",
           description: "",
         },
       ],
-      universities: [{ name: "", degree: "", endDate: "", description: "" }],
+      educations: [
+        { institute: "", degree: "", due_date: "", description: "" },
+      ],
     });
     setFile("");
+    setStep(0);
   };
 
   return (

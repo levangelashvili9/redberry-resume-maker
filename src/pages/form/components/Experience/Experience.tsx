@@ -42,25 +42,25 @@ export const Experience: React.FC<Props> = ({
   } = useForm<DataTypes>({
     mode: "onChange",
     defaultValues: {
-      jobs: infoData.jobs,
+      experiences: infoData.experiences,
     },
   });
 
   const { fields, append } = useFieldArray({
-    name: "jobs",
+    name: "experiences",
     control,
   });
 
   const addFieldHandler = () => {
     setInfoData({
       ...infoData,
-      jobs: [
-        ...infoData.jobs,
+      experiences: [
+        ...infoData.experiences,
         {
           position: "",
-          company: "",
-          startDate: "",
-          endDate: "",
+          employer: "",
+          start_date: "",
+          due_date: "",
           description: "",
         },
       ],
@@ -68,9 +68,9 @@ export const Experience: React.FC<Props> = ({
 
     append({
       position: "",
-      company: "",
-      startDate: "",
-      endDate: "",
+      employer: "",
+      start_date: "",
+      due_date: "",
       description: "",
     });
   };
@@ -88,30 +88,32 @@ export const Experience: React.FC<Props> = ({
             <InputDiv>
               <Input
                 placeholder="დეველოპერი, დიზაინერი, ა.შ."
-                {...register(`jobs.${index}.position`, {
+                {...register(`experiences.${index}.position`, {
                   required: true,
                   minLength: 2,
                   onChange: (e) => {
                     setInfoData({
                       ...infoData,
-                      jobs: infoData.jobs.map((job, i) =>
-                        i === index ? { ...job, position: e.target.value } : job
+                      experiences: infoData.experiences.map((experience, i) =>
+                        i === index
+                          ? { ...experience, position: e.target.value }
+                          : experience
                       ),
                     });
                   },
                 })}
                 status={statusChanger(
-                  errors.jobs && errors.jobs[index]?.position,
-                  infoData.jobs[index].position
+                  errors.experiences && errors.experiences[index]?.position,
+                  infoData.experiences[index].position
                 )}
               />
-              {errors.jobs && errors.jobs[index]?.position ? (
+              {errors.experiences && errors.experiences[index]?.position ? (
                 <ErrorImg src={ErrorSVG} alt="" />
               ) : (
                 <ValidatedImg
                   src={ValidatedSVG}
                   alt=""
-                  isHidden={infoData.jobs[index].position === ""}
+                  isHidden={infoData.experiences[index].position === ""}
                 />
               )}
             </InputDiv>
@@ -123,30 +125,32 @@ export const Experience: React.FC<Props> = ({
             <InputDiv>
               <Input
                 placeholder="დამსაქმებელი"
-                {...register(`jobs.${index}.company`, {
+                {...register(`experiences.${index}.employer`, {
                   required: true,
                   minLength: 2,
                   onChange: (e) => {
                     setInfoData({
                       ...infoData,
-                      jobs: infoData.jobs.map((job, i) =>
-                        i === index ? { ...job, company: e.target.value } : job
+                      experiences: infoData.experiences.map((experience, i) =>
+                        i === index
+                          ? { ...experience, employer: e.target.value }
+                          : experience
                       ),
                     });
                   },
                 })}
                 status={statusChanger(
-                  errors.jobs && errors.jobs[index]?.company,
-                  infoData.jobs[index].company
+                  errors.experiences && errors.experiences[index]?.employer,
+                  infoData.experiences[index].employer
                 )}
               />
-              {errors.jobs && errors.jobs[index]?.company ? (
+              {errors.experiences && errors.experiences[index]?.employer ? (
                 <ErrorImg src={ErrorSVG} alt="" />
               ) : (
                 <ValidatedImg
                   src={ValidatedSVG}
                   alt=""
-                  isHidden={infoData.jobs[index].company === ""}
+                  isHidden={infoData.experiences[index].employer === ""}
                 />
               )}
             </InputDiv>
@@ -159,22 +163,22 @@ export const Experience: React.FC<Props> = ({
               <InputDiv>
                 <Input
                   type="date"
-                  {...register(`jobs.${index}.startDate`, {
+                  {...register(`experiences.${index}.start_date`, {
                     required: true,
                     onChange: (e) => {
                       setInfoData({
                         ...infoData,
-                        jobs: infoData.jobs.map((job, i) =>
+                        experiences: infoData.experiences.map((experience, i) =>
                           i === index
-                            ? { ...job, startDate: e.target.value }
-                            : job
+                            ? { ...experience, start_date: e.target.value }
+                            : experience
                         ),
                       });
                     },
                   })}
                   status={statusChanger(
-                    errors.jobs && errors.jobs[index]?.startDate,
-                    infoData.jobs[index].startDate
+                    errors.experiences && errors.experiences[index]?.start_date,
+                    infoData.experiences[index].start_date
                   )}
                 />
               </InputDiv>
@@ -185,22 +189,22 @@ export const Experience: React.FC<Props> = ({
               <InputDiv>
                 <Input
                   type="date"
-                  {...register(`jobs.${index}.endDate`, {
+                  {...register(`experiences.${index}.due_date`, {
                     required: true,
                     onChange: (e) => {
                       setInfoData({
                         ...infoData,
-                        jobs: infoData.jobs.map((job, i) =>
+                        experiences: infoData.experiences.map((experience, i) =>
                           i === index
-                            ? { ...job, endDate: e.target.value }
-                            : job
+                            ? { ...experience, due_date: e.target.value }
+                            : experience
                         ),
                       });
                     },
                   })}
                   status={statusChanger(
-                    errors.jobs && errors.jobs[index]?.endDate,
-                    infoData.jobs[index].endDate
+                    errors.experiences && errors.experiences[index]?.due_date,
+                    infoData.experiences[index].due_date
                   )}
                 />
               </InputDiv>
@@ -211,22 +215,22 @@ export const Experience: React.FC<Props> = ({
             <Label>აღწერა</Label>
             <Textarea
               placeholder="როლი თანამდებობაზე და ზოგადი აღწერა"
-              {...register(`jobs.${index}.description`, {
+              {...register(`experiences.${index}.description`, {
                 required: true,
                 onChange: (e) => {
                   setInfoData({
                     ...infoData,
-                    jobs: infoData.jobs.map((job, i) =>
+                    experiences: infoData.experiences.map((experience, i) =>
                       i === index
-                        ? { ...job, description: e.target.value }
-                        : job
+                        ? { ...experience, description: e.target.value }
+                        : experience
                     ),
                   });
                 },
               })}
               status={statusChanger(
-                errors.jobs && errors.jobs[index]?.description,
-                infoData.jobs[index].description
+                errors.experiences && errors.experiences[index]?.description,
+                infoData.experiences[index].description
               )}
             />
           </InputElement>

@@ -148,12 +148,12 @@ export const PersonalInfo: React.FC<Props> = ({
         <Label>ჩემ შესახებ (არასავალდებულო)</Label>
         <Textarea
           placeholder="ზოგადი ინფო შენ შესახებ"
-          {...register("aboutMe", {
+          {...register("about_me", {
             onChange: (e) => {
-              setInfoData({ ...infoData, aboutMe: e.target.value });
+              setInfoData({ ...infoData, about_me: e.target.value });
             },
           })}
-          defaultValue={infoData.aboutMe}
+          defaultValue={infoData.about_me}
         />
       </InputElement>
 
@@ -190,23 +190,23 @@ export const PersonalInfo: React.FC<Props> = ({
         <InputDiv>
           <Input
             placeholder="+995 551 12 34 56"
-            {...register("number", {
+            {...register("phone_number", {
               required: true,
               pattern: /^\+995\s5\d{2}\s\d{2}\s\d{2}\s\d{2}$/,
               onChange: (e) => {
-                setInfoData({ ...infoData, number: e.target.value });
+                setInfoData({ ...infoData, phone_number: e.target.value });
               },
             })}
-            defaultValue={infoData.number}
-            status={statusChanger(errors.number, infoData.number)}
+            defaultValue={infoData.phone_number}
+            status={statusChanger(errors.phone_number, infoData.phone_number)}
           />
-          {errors.number ? (
+          {errors.phone_number ? (
             <ErrorImg src={ErrorSVG} alt="" />
           ) : (
             <ValidatedImg
               src={ValidatedSVG}
               alt=""
-              isHidden={infoData.number === ""}
+              isHidden={infoData.phone_number === ""}
             />
           )}
         </InputDiv>

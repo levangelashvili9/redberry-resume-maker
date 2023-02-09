@@ -41,40 +41,42 @@ export const Resume: React.FC<Props> = ({ border, infoData, file }) => {
               <ContactInfoText>{infoData.email}</ContactInfoText>
             </ContactInfo>
           ) : null}
-          {infoData.number ? (
+          {infoData.phone_number ? (
             <ContactInfo margin={"34px"}>
               <img src={PhoneSVG} alt="" />
-              <ContactInfoText>{infoData.number}</ContactInfoText>
+              <ContactInfoText>{infoData.phone_number}</ContactInfoText>
             </ContactInfo>
           ) : null}
-          {infoData.aboutMe ? (
+          {infoData.about_me ? (
             <>
               <Heading>ჩემ შესახებ</Heading>
-              <ResumeText>{infoData.aboutMe}</ResumeText>
+              <ResumeText>{infoData.about_me}</ResumeText>
             </>
           ) : null}
         </div>
         {file ? <Photo src={file} alt="" /> : null}
       </MainSection>
 
-      {areAllValuesEmpty(infoData.jobs) || (
+      {areAllValuesEmpty(infoData.experiences) || (
         <ResumeSection>
           <Heading>გამოცდილება</Heading>
           <List>
-            {infoData.jobs.map((job, index) => (
+            {infoData.experiences.map((experience, index) => (
               <div key={index}>
-                {job.position || job.company ? (
+                {experience.position || experience.employer ? (
                   <SubHeading>
-                    {job.position}, {job.company}
+                    {experience.position}, {experience.employer}
                   </SubHeading>
                 ) : null}
-                {job.startDate || job.endDate ? (
+                {experience.start_date || experience.due_date ? (
                   <Date>
-                    {job.startDate} - {job.endDate}
+                    {experience.start_date} - {experience.due_date}
                   </Date>
                 ) : null}
-                {job.description ? (
-                  <ResumeText isCapitalized>{job.description}</ResumeText>
+                {experience.description ? (
+                  <ResumeText isCapitalized>
+                    {experience.description}
+                  </ResumeText>
                 ) : null}
               </div>
             ))}
@@ -82,20 +84,20 @@ export const Resume: React.FC<Props> = ({ border, infoData, file }) => {
         </ResumeSection>
       )}
 
-      {areAllValuesEmpty(infoData.universities) || (
+      {areAllValuesEmpty(infoData.educations) || (
         <ResumeSection>
           <Heading>განათლება</Heading>
           <List>
-            {infoData.universities.map((uni, index) => (
+            {infoData.educations.map((education, index) => (
               <div key={index}>
-                {uni.name || uni.degree ? (
+                {education.institute || education.degree ? (
                   <SubHeading>
-                    {uni.name}, {uni.degree}
+                    {education.institute}, {education.degree}
                   </SubHeading>
                 ) : null}
-                {uni.endDate ? <Date>2020-09-23</Date> : null}
-                {uni.description ? (
-                  <ResumeText>{uni.description}</ResumeText>
+                {education.due_date ? <Date>2020-09-23</Date> : null}
+                {education.description ? (
+                  <ResumeText>{education.description}</ResumeText>
                 ) : null}
               </div>
             ))}

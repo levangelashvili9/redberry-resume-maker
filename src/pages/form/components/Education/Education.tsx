@@ -45,35 +45,35 @@ export const Education: React.FC<Props> = ({
   } = useForm<DataTypes>({
     mode: "onChange",
     defaultValues: {
-      universities: infoData.universities,
+      educations: infoData.educations,
     },
   });
 
   const degreesList = useFetchDropdown();
 
   const { fields, append } = useFieldArray({
-    name: "universities",
+    name: "educations",
     control,
   });
 
   const addFieldHandler = () => {
     setInfoData({
       ...infoData,
-      universities: [
-        ...infoData.universities,
+      educations: [
+        ...infoData.educations,
         {
-          name: "",
+          institute: "",
           degree: "",
-          endDate: "",
+          due_date: "",
           description: "",
         },
       ],
     });
 
     append({
-      name: "",
+      institute: "",
       degree: "",
-      endDate: "",
+      due_date: "",
       description: "",
     });
   };
@@ -89,32 +89,32 @@ export const Education: React.FC<Props> = ({
             <InputDiv>
               <Input
                 placeholder="სასწავლებელი"
-                {...register(`universities.${index}.name`, {
+                {...register(`educations.${index}.institute`, {
                   required: true,
                   minLength: 2,
                   onChange: (e) => {
                     setInfoData({
                       ...infoData,
-                      universities: infoData.universities.map((university, i) =>
+                      educations: infoData.educations.map((education, i) =>
                         i === index
-                          ? { ...university, name: e.target.value }
-                          : university
+                          ? { ...education, institute: e.target.value }
+                          : education
                       ),
                     });
                   },
                 })}
                 status={statusChanger(
-                  errors.universities && errors.universities[index]?.name,
-                  infoData.universities[index].name
+                  errors.educations && errors.educations[index]?.institute,
+                  infoData.educations[index].institute
                 )}
               />
-              {errors.universities && errors.universities[index]?.name ? (
+              {errors.educations && errors.educations[index]?.institute ? (
                 <ErrorImg src={ErrorSVG} alt="" />
               ) : (
                 <ValidatedImg
                   src={ValidatedSVG}
                   alt=""
-                  isHidden={infoData.universities[index].name === ""}
+                  isHidden={infoData.educations[index].institute === ""}
                 />
               )}
             </InputDiv>
@@ -125,20 +125,20 @@ export const Education: React.FC<Props> = ({
             <InputElement>
               <Label>ხარისხი</Label>
               <Select
-                value={infoData.universities[index].degree}
+                value={infoData.educations[index].degree}
                 status={statusChanger(
-                  errors.universities && errors.universities[index]?.degree,
-                  infoData.universities[index].degree
+                  errors.educations && errors.educations[index]?.degree,
+                  infoData.educations[index].degree
                 )}
-                {...register(`universities.${index}.degree`, {
+                {...register(`educations.${index}.degree`, {
                   required: true,
                   onChange: (e) => {
                     setInfoData({
                       ...infoData,
-                      universities: infoData.universities.map((university, i) =>
+                      educations: infoData.educations.map((education, i) =>
                         i === index
-                          ? { ...university, degree: e.target.value }
-                          : university
+                          ? { ...education, degree: e.target.value }
+                          : education
                       ),
                     });
                   },
@@ -162,23 +162,22 @@ export const Education: React.FC<Props> = ({
               <InputDiv>
                 <Input
                   type="date"
-                  {...register(`universities.${index}.endDate`, {
+                  {...register(`educations.${index}.due_date`, {
                     required: true,
                     onChange: (e) => {
                       setInfoData({
                         ...infoData,
-                        universities: infoData.universities.map(
-                          (university, i) =>
-                            i === index
-                              ? { ...university, endDate: e.target.value }
-                              : university
+                        educations: infoData.educations.map((education, i) =>
+                          i === index
+                            ? { ...education, due_date: e.target.value }
+                            : education
                         ),
                       });
                     },
                   })}
                   status={statusChanger(
-                    errors.universities && errors.universities[index]?.endDate,
-                    infoData.universities[index].endDate
+                    errors.educations && errors.educations[index]?.due_date,
+                    infoData.educations[index].due_date
                   )}
                 />
               </InputDiv>
@@ -189,22 +188,22 @@ export const Education: React.FC<Props> = ({
             <Label>აღწერა</Label>
             <Textarea
               placeholder="როლი თანამდებობაზე და ზოგადი აღწერა"
-              {...register(`universities.${index}.description`, {
+              {...register(`educations.${index}.description`, {
                 required: true,
                 onChange: (e) => {
                   setInfoData({
                     ...infoData,
-                    universities: infoData.universities.map((university, i) =>
+                    educations: infoData.educations.map((education, i) =>
                       i === index
-                        ? { ...university, description: e.target.value }
-                        : university
+                        ? { ...education, description: e.target.value }
+                        : education
                     ),
                   });
                 },
               })}
               status={statusChanger(
-                errors.universities && errors.universities[index]?.description,
-                infoData.universities[index].description
+                errors.educations && errors.educations[index]?.description,
+                infoData.educations[index].description
               )}
             />
           </InputElement>

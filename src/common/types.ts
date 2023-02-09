@@ -1,24 +1,24 @@
-type Jobs = {
+type Experiences = {
   position: string;
-  company: string;
-  startDate: string;
-  endDate: string;
+  employer: string;
+  start_date: string;
+  due_date: string;
   description: string;
 };
 
-type Universities = {
-  name: string;
+type Educations = {
+  institute: string;
   degree: string;
-  endDate: string;
+  due_date: string;
   description: string;
 };
 
 export type DataTypes = {
   name: string;
   surname: string;
-  aboutMe: string;
+  about_me: string;
   email: string;
-  number: string;
-  jobs: Jobs[];
-  universities: Universities[];
+  phone_number: string;
+  experiences: Experiences[];
+  educations: Educations[];
 };
