@@ -21,4 +21,5 @@ export type DataTypes = {
   phone_number: string;
   experiences: Experiences[];
   educations: Educations[];
+  image: string;
 };

@@ -22,9 +22,11 @@ import {
 } from "../../../../common/styles/FormStyles";
 import { DataTypes } from "../../../../common/types";
 import { statusChanger } from "../../../../common/utils/statusChanger";
+import { isRequired } from "../../../../common/utils/isRequired";
 
 import ErrorSVG from "/assets/error.svg";
 import ValidatedSVG from "/assets/validated.svg";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   infoData: DataTypes;
@@ -37,6 +39,8 @@ export const Education: React.FC<Props> = ({
   setInfoData,
   setStep,
 }) => {
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
@@ -78,7 +82,9 @@ export const Education: React.FC<Props> = ({
     });
   };
 
-  const onSubmit: SubmitHandler<DataTypes> = (data) => {};
+  const onSubmit: SubmitHandler<DataTypes> = (data) => {
+    navigate("/resume");
+  };
 
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
@@ -90,7 +96,7 @@ export const Education: React.FC<Props> = ({
               <Input
                 placeholder="სასწავლებელი"
                 {...register(`educations.${index}.institute`, {
-                  required: true,
+                  required: isRequired(infoData.educations[index], index),
                   minLength: 2,
                   onChange: (e) => {
                     setInfoData({
@@ -131,7 +137,7 @@ export const Education: React.FC<Props> = ({
                   infoData.educations[index].degree
                 )}
                 {...register(`educations.${index}.degree`, {
-                  required: true,
+                  required: isRequired(infoData.educations[index], index),
                   onChange: (e) => {
                     setInfoData({
                       ...infoData,
@@ -163,7 +169,7 @@ export const Education: React.FC<Props> = ({
                 <Input
                   type="date"
                   {...register(`educations.${index}.due_date`, {
-                    required: true,
+                    required: isRequired(infoData.educations[index], index),
                     onChange: (e) => {
                       setInfoData({
                         ...infoData,
@@ -189,7 +195,7 @@ export const Education: React.FC<Props> = ({
             <Textarea
               placeholder="როლი თანამდებობაზე და ზოგადი აღწერა"
               {...register(`educations.${index}.description`, {
-                required: true,
+                required: isRequired(infoData.educations[index], index),
                 onChange: (e) => {
                   setInfoData({
                     ...infoData,
@@ -213,7 +219,9 @@ export const Education: React.FC<Props> = ({
         სხვა სასწავლებლის დამატება
       </AddField>
       <PageController isTwoButtons>
-        <BackButton onClick={() => setStep(1)}>უკან</BackButton>
+        <BackButton type="button" onClick={() => setStep(1)}>
+          უკან
+        </BackButton>
         <NextButton>დასრულება</NextButton>
       </PageController>
     </Container>

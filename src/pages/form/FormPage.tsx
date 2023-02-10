@@ -20,18 +20,11 @@ import ChevronLeftSVG from "/assets/chevron-left.svg";
 import useLocalStorage from "../../common/hooks/useLocalStorage";
 
 type Props = {
-  file: string;
-  setFile: React.Dispatch<React.SetStateAction<string>>;
   infoData: DataTypes;
   setInfoData: React.Dispatch<React.SetStateAction<DataTypes>>;
 };
 
-export const FormPage: React.FC<Props> = ({
-  file,
-  setFile,
-  infoData,
-  setInfoData,
-}) => {
+export const FormPage: React.FC<Props> = ({ infoData, setInfoData }) => {
   const [step, setStep] = useLocalStorage<number>("step", 0);
 
   const headingList: string[] = ["პირადი ინფო", "გამოცდილება", "განათლება"];
@@ -42,8 +35,6 @@ export const FormPage: React.FC<Props> = ({
         <PersonalInfo
           infoData={infoData}
           setInfoData={setInfoData}
-          file={file}
-          setFile={setFile}
           setStep={setStep}
         />
       );
@@ -87,8 +78,8 @@ export const FormPage: React.FC<Props> = ({
       educations: [
         { institute: "", degree: "", due_date: "", description: "" },
       ],
+      image: "",
     });
-    setFile("");
     setStep(0);
   };
 
@@ -106,7 +97,7 @@ export const FormPage: React.FC<Props> = ({
         </Heading>
         <React.Fragment>{pageDisplay()}</React.Fragment>
       </FormSide>
-      <Resume infoData={infoData} file={file} />
+      <Resume infoData={infoData} />
     </Container>
   );
 };

@@ -15,11 +15,10 @@ import ChevronLeftSVG from "/assets/chevron-left.svg";
 import CrossSVG from "/assets/cross.svg";
 
 type Props = {
-  file: string;
   infoData: DataTypes;
 };
 
-export const ResumePage: React.FC<Props> = ({ file, infoData }) => {
+export const ResumePage: React.FC<Props> = ({ infoData }) => {
   const [messageIsOpen, setMessageIsOpen] = useState<boolean>(true);
 
   return (
@@ -27,7 +26,7 @@ export const ResumePage: React.FC<Props> = ({ file, infoData }) => {
       <Link to="/">
         <ChevronImage src={ChevronLeftSVG} alt="" />
       </Link>
-      <Resume border file={file} infoData={infoData} />
+      <Resume border infoData={infoData} />
       <SuccessMessage messageIsOpen={messageIsOpen}>
         <SuccessMessageText>რეზიუმე წარმატებით გაიგზავნა 🎉</SuccessMessageText>
         <CrossImg

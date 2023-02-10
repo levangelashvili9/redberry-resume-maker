@@ -24,10 +24,9 @@ import { areAllValuesEmpty } from "../../utils/areAllValuesEmpty";
 type Props = {
   border?: boolean;
   infoData: DataTypes;
-  file: string;
 };
 
-export const Resume: React.FC<Props> = ({ border, infoData, file }) => {
+export const Resume: React.FC<Props> = ({ border, infoData }) => {
   return (
     <Container border={border}>
       <MainSection>
@@ -54,7 +53,7 @@ export const Resume: React.FC<Props> = ({ border, infoData, file }) => {
             </>
           ) : null}
         </div>
-        {file ? <Photo src={file} alt="" /> : null}
+        {infoData.image ? <Photo src={infoData.image} alt="" /> : null}
       </MainSection>
 
       {areAllValuesEmpty(infoData.experiences) || (

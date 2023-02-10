@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { SubmitHandler, useForm } from "react-hook-form";
 import { DataTypes } from "../../../../common/types";
 import { statusChanger } from "../../../../common/utils/statusChanger";
@@ -28,8 +26,6 @@ import ValidatedSVG from "/assets/validated.svg";
 type Props = {
   infoData: DataTypes;
   setInfoData: React.Dispatch<React.SetStateAction<DataTypes>>;
-  file: string;
-  setFile: React.Dispatch<React.SetStateAction<string>>;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -37,8 +33,6 @@ export const PersonalInfo: React.FC<Props> = ({
   infoData,
   setInfoData,
   setStep,
-  file,
-  setFile,
 }) => {
   const {
     handleSubmit,
@@ -48,8 +42,6 @@ export const PersonalInfo: React.FC<Props> = ({
     mode: "onChange",
   });
 
-  const [fileError, setFileError] = useState<string>("");
-
   const convert2base64 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
@@ -58,16 +50,15 @@ export const PersonalInfo: React.FC<Props> = ({
 
       reader.onloadend = () => {
         const result = reader.result?.toString();
-        result && setFile(result);
+        result && setInfoData({ ...infoData, image: result });
       };
 
       reader.readAsDataURL(file);
-      setFileError("");
     }
   };
 
   const onSubmit: SubmitHandler<DataTypes> = (data) => {
-    file && setStep(1);
+    setStep(1);
   };
 
   return (
@@ -138,10 +129,15 @@ export const PersonalInfo: React.FC<Props> = ({
           type="file"
           style={{ display: "none" }}
           id="fileUpload"
-          onChange={(event) => convert2base64(event)}
+          {...register("image", {
+            required: true,
+            onChange: (event) => {
+              convert2base64(event);
+            },
+          })}
         />
         <UploadPicButton htmlFor="fileUpload">ატვირთვა</UploadPicButton>
-        <p>{fileError}</p>
+        {errors.image && <p>Please, select a file</p>}
       </UploadPic>
 
       <InputElement>
@@ -214,12 +210,7 @@ export const PersonalInfo: React.FC<Props> = ({
       </InputElement>
 
       <PageController>
-        <NextButton
-          type="submit"
-          onClick={() => file || setFileError("Please, select a file")}
-        >
-          შემდეგი
-        </NextButton>
+        <NextButton type="submit">შემდეგი</NextButton>
       </PageController>
     </Container>
   );

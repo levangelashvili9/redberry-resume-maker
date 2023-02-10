@@ -19,6 +19,7 @@ import {
 } from "../../../../common/styles/FormStyles";
 import { DataTypes } from "../../../../common/types";
 import { statusChanger } from "../../../../common/utils/statusChanger";
+import { isRequired } from "../../../../common/utils/isRequired";
 
 import ErrorSVG from "/assets/error.svg";
 import ValidatedSVG from "/assets/validated.svg";
@@ -89,7 +90,7 @@ export const Experience: React.FC<Props> = ({
               <Input
                 placeholder="დეველოპერი, დიზაინერი, ა.შ."
                 {...register(`experiences.${index}.position`, {
-                  required: true,
+                  required: isRequired(infoData.experiences[index], index),
                   minLength: 2,
                   onChange: (e) => {
                     setInfoData({
@@ -126,7 +127,7 @@ export const Experience: React.FC<Props> = ({
               <Input
                 placeholder="დამსაქმებელი"
                 {...register(`experiences.${index}.employer`, {
-                  required: true,
+                  required: isRequired(infoData.experiences[index], index),
                   minLength: 2,
                   onChange: (e) => {
                     setInfoData({
@@ -164,7 +165,7 @@ export const Experience: React.FC<Props> = ({
                 <Input
                   type="date"
                   {...register(`experiences.${index}.start_date`, {
-                    required: true,
+                    required: isRequired(infoData.experiences[index], index),
                     onChange: (e) => {
                       setInfoData({
                         ...infoData,
@@ -190,7 +191,7 @@ export const Experience: React.FC<Props> = ({
                 <Input
                   type="date"
                   {...register(`experiences.${index}.due_date`, {
-                    required: true,
+                    required: isRequired(infoData.experiences[index], index),
                     onChange: (e) => {
                       setInfoData({
                         ...infoData,
@@ -216,7 +217,7 @@ export const Experience: React.FC<Props> = ({
             <Textarea
               placeholder="როლი თანამდებობაზე და ზოგადი აღწერა"
               {...register(`experiences.${index}.description`, {
-                required: true,
+                required: isRequired(infoData.experiences[index], index),
                 onChange: (e) => {
                   setInfoData({
                     ...infoData,

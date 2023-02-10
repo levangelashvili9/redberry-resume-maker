@@ -8,8 +8,6 @@ import useLocalStorage from "./common/hooks/useLocalStorage";
 import { DataTypes } from "./common/types";
 
 function App() {
-  const [file, setFile] = useLocalStorage("file", "");
-
   const [infoData, setInfoData] = useLocalStorage<DataTypes>("infoData", {
     name: "",
     surname: "",
@@ -26,6 +24,7 @@ function App() {
       },
     ],
     educations: [{ institute: "", degree: "", due_date: "", description: "" }],
+    image: "",
   });
 
   return (
@@ -33,19 +32,9 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route
         path="/form"
-        element={
-          <FormPage
-            file={file}
-            setFile={setFile}
-            infoData={infoData}
-            setInfoData={setInfoData}
-          />
-        }
+        element={<FormPage infoData={infoData} setInfoData={setInfoData} />}
       />
-      <Route
-        path="/resume"
-        element={<ResumePage file={file} infoData={infoData} />}
-      />
+      <Route path="/resume" element={<ResumePage infoData={infoData} />} />
     </Routes>
   );
 }
