@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { FinishedResume } from "./components/FinishedResume";
 
-import { Resume } from "../../common/components/Resume";
-import { DataTypes } from "../../common/types";
 import {
   ChevronImage,
   Container,
@@ -14,11 +13,7 @@ import {
 import ChevronLeftSVG from "/assets/chevron-left.svg";
 import CrossSVG from "/assets/cross.svg";
 
-type Props = {
-  infoData: DataTypes;
-};
-
-export const ResumePage: React.FC<Props> = ({ infoData }) => {
+export const ResumePage = () => {
   const [messageIsOpen, setMessageIsOpen] = useState<boolean>(true);
 
   return (
@@ -26,7 +21,7 @@ export const ResumePage: React.FC<Props> = ({ infoData }) => {
       <Link to="/">
         <ChevronImage src={ChevronLeftSVG} alt="" />
       </Link>
-      <Resume border infoData={infoData} />
+      <FinishedResume border />
       <SuccessMessage messageIsOpen={messageIsOpen}>
         <SuccessMessageText>რეზიუმე წარმატებით გაიგზავნა 🎉</SuccessMessageText>
         <CrossImg

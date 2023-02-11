@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { PersonalInfo } from "./components/PersonalInfo";
 import { Experience } from "./components/Experience";
 import { Education } from "./components/Education";
-import { Resume } from "../../common/components/Resume";
+import { Resume } from "./components/Resume";
 
 import {
   Container,

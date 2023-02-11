@@ -1,0 +1,1 @@
+export { FinishedResume } from "./FinishedResume";

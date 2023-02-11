@@ -12,14 +12,14 @@ import {
   MainSection,
   LogoImage,
   List,
-} from "./Resume.styled";
+} from "../../../../common/styles/ResumeStyles";
 
 import EmailSVG from "/assets/email.svg";
 import PhoneSVG from "/assets/phone.svg";
 import ThirdLogoSVG from "/assets/logo-3.svg";
-import { DataTypes } from "../../types";
+import { DataTypes } from "../../../../common/types";
 import React from "react";
-import { areAllValuesEmpty } from "../../utils/areAllValuesEmpty";
+import { areAllValuesEmpty } from "../../../../common/utils/areAllValuesEmpty";
 
 type Props = {
   border?: boolean;

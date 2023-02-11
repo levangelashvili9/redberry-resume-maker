@@ -41,7 +41,7 @@ function App() {
         path="/form"
         element={<FormPage infoData={infoData} setInfoData={setInfoData} />}
       />
-      <Route path="/resume" element={<ResumePage infoData={infoData} />} />
+      <Route path="/resume" element={<ResumePage />} />
     </Routes>
   );
 }

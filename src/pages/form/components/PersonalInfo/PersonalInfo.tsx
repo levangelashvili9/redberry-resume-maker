@@ -129,6 +129,7 @@ export const PersonalInfo: React.FC<Props> = ({
           type="file"
           style={{ display: "none" }}
           id="fileUpload"
+          accept="image/png, image/jpeg"
           {...register("image", {
             required: infoData.image ? false : true,
             onChange: (event) => {
