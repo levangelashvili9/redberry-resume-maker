@@ -27,6 +27,7 @@ import useSubmitData from "../../../../common/hooks/useSubmitData";
 
 import ErrorSVG from "/assets/error.svg";
 import ValidatedSVG from "/assets/validated.svg";
+import resetData from "../../../../common/utils/resetData";
 
 type Props = {
   infoData: DataTypes;
@@ -84,13 +85,11 @@ export const Education: React.FC<Props> = ({
 
   const onSubmit: SubmitHandler<DataTypes> = (data) => {
     postData();
+    resetData(setInfoData, setStep);
   };
 
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
-      <button type="button" onClick={() => console.log(infoData)}>
-        CONSOLE
-      </button>
       {fields.map((field, index) => (
         <Field key={field.id}>
           <InputElement>

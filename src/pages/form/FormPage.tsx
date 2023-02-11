@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import { PersonalInfo } from "./components/PersonalInfo";
@@ -18,6 +18,7 @@ import { DataTypes } from "../../common/types";
 
 import ChevronLeftSVG from "/assets/chevron-left.svg";
 import useLocalStorage from "../../common/hooks/useLocalStorage";
+import resetData from "../../common/utils/resetData";
 
 type Props = {
   infoData: DataTypes;
@@ -58,36 +59,11 @@ export const FormPage: React.FC<Props> = ({ infoData, setInfoData }) => {
     return null;
   };
 
-  const goBackHandler = () => {
-    setInfoData({
-      ...infoData,
-      name: "",
-      surname: "",
-      about_me: "",
-      email: "",
-      phone_number: "",
-      experiences: [
-        {
-          position: "",
-          employer: "",
-          start_date: "",
-          due_date: "",
-          description: "",
-        },
-      ],
-      educations: [
-        { institute: "", degree_id: "", due_date: "", description: "" },
-      ],
-      image: "",
-    });
-    setStep(0);
-  };
-
   return (
     <Container>
       <FormSide>
         <ChevronLeft>
-          <Link to="/" onClick={goBackHandler}>
+          <Link to="/" onClick={() => resetData(setInfoData, setStep)}>
             <img src={ChevronLeftSVG} alt="" />
           </Link>
         </ChevronLeft>
