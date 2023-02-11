@@ -1,7 +1,10 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { DataTypes } from "../types";
 
 const usePostData = (infoData: DataTypes) => {
+  const navigate = useNavigate();
+
   const postData = async () => {
     try {
       const res = await axios({
@@ -24,6 +27,9 @@ const usePostData = (infoData: DataTypes) => {
       );
 
       console.log(response.data);
+      navigate("/resume", {
+        state: response.data,
+      });
     } catch (error) {
       console.log(error);
     }

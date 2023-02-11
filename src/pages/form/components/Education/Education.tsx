@@ -27,8 +27,6 @@ import useSubmitData from "../../../../common/hooks/useSubmitData";
 
 import ErrorSVG from "/assets/error.svg";
 import ValidatedSVG from "/assets/validated.svg";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 type Props = {
   infoData: DataTypes;
@@ -41,7 +39,6 @@ export const Education: React.FC<Props> = ({
   setInfoData,
   setStep,
 }) => {
-  const navigate = useNavigate();
   const postData = useSubmitData(infoData);
 
   const {
@@ -88,7 +85,6 @@ export const Education: React.FC<Props> = ({
   const onSubmit: SubmitHandler<DataTypes> = (data) => {
     postData();
 
-    // navigate("/resume");
   };
 
   return (
