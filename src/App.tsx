@@ -23,7 +23,14 @@ function App() {
         description: "",
       },
     ],
-    educations: [{ institute: "", degree: "", due_date: "", description: "" }],
+    educations: [
+      {
+        institute: "",
+        degree_id: "",
+        due_date: "",
+        description: "",
+      },
+    ],
     image: "",
   });
 

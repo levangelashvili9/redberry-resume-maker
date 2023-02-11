@@ -8,7 +8,7 @@ type Experiences = {
 
 type Educations = {
   institute: string;
-  degree: string;
+  degree_id: string;
   due_date: string;
   description: string;
 };

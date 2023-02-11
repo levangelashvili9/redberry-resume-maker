@@ -130,7 +130,7 @@ export const PersonalInfo: React.FC<Props> = ({
           style={{ display: "none" }}
           id="fileUpload"
           {...register("image", {
-            required: true,
+            required: infoData.image ? false : true,
             onChange: (event) => {
               convert2base64(event);
             },
@@ -188,7 +188,7 @@ export const PersonalInfo: React.FC<Props> = ({
             placeholder="+995 551 12 34 56"
             {...register("phone_number", {
               required: true,
-              pattern: /^\+995\s5\d{2}\s\d{2}\s\d{2}\s\d{2}$/,
+              // pattern: /^\+995\s5\d{2}\s\d{2}\s\d{2}\s\d{2}$/,
               onChange: (e) => {
                 setInfoData({ ...infoData, phone_number: e.target.value });
               },

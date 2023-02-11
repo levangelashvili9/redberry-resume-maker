@@ -76,7 +76,7 @@ export const FormPage: React.FC<Props> = ({ infoData, setInfoData }) => {
         },
       ],
       educations: [
-        { institute: "", degree: "", due_date: "", description: "" },
+        { institute: "", degree_id: "", due_date: "", description: "" },
       ],
       image: "",
     });

@@ -23,10 +23,12 @@ import {
 import { DataTypes } from "../../../../common/types";
 import { statusChanger } from "../../../../common/utils/statusChanger";
 import { isRequired } from "../../../../common/utils/isRequired";
+import useSubmitData from "../../../../common/hooks/useSubmitData";
 
 import ErrorSVG from "/assets/error.svg";
 import ValidatedSVG from "/assets/validated.svg";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 type Props = {
   infoData: DataTypes;
@@ -40,6 +42,7 @@ export const Education: React.FC<Props> = ({
   setStep,
 }) => {
   const navigate = useNavigate();
+  const postData = useSubmitData(infoData);
 
   const {
     control,
@@ -67,7 +70,7 @@ export const Education: React.FC<Props> = ({
         ...infoData.educations,
         {
           institute: "",
-          degree: "",
+          degree_id: "",
           due_date: "",
           description: "",
         },
@@ -76,14 +79,16 @@ export const Education: React.FC<Props> = ({
 
     append({
       institute: "",
-      degree: "",
+      degree_id: "",
       due_date: "",
       description: "",
     });
   };
 
   const onSubmit: SubmitHandler<DataTypes> = (data) => {
-    navigate("/resume");
+    postData();
+
+    // navigate("/resume");
   };
 
   return (
@@ -131,19 +136,19 @@ export const Education: React.FC<Props> = ({
             <InputElement>
               <Label>ხარისხი</Label>
               <Select
-                value={infoData.educations[index].degree}
+                value={infoData.educations[index].degree_id}
                 status={statusChanger(
-                  errors.educations && errors.educations[index]?.degree,
-                  infoData.educations[index].degree
+                  errors.educations && errors.educations[index]?.degree_id,
+                  infoData.educations[index].degree_id
                 )}
-                {...register(`educations.${index}.degree`, {
+                {...register(`educations.${index}.degree_id`, {
                   required: isRequired(infoData.educations[index], index),
                   onChange: (e) => {
                     setInfoData({
                       ...infoData,
                       educations: infoData.educations.map((education, i) =>
                         i === index
-                          ? { ...education, degree: e.target.value }
+                          ? { ...education, degree_id: e.target.value }
                           : education
                       ),
                     });
@@ -155,7 +160,7 @@ export const Education: React.FC<Props> = ({
                 </Option>
                 {degreesList
                   ? degreesList.map((degree) => (
-                      <Option key={degree.id} value={degree.title}>
+                      <Option key={degree.id} value={degree.id}>
                         {degree.title}
                       </Option>
                     ))
@@ -193,7 +198,7 @@ export const Education: React.FC<Props> = ({
           <InputElement>
             <Label>აღწერა</Label>
             <Textarea
-              placeholder="როლი თანამდებობაზე და ზოგადი აღწერა"
+              placeholder="განათლების აღწერა"
               {...register(`educations.${index}.description`, {
                 required: isRequired(infoData.educations[index], index),
                 onChange: (e) => {

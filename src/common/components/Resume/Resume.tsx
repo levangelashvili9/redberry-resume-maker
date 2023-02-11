@@ -89,9 +89,9 @@ export const Resume: React.FC<Props> = ({ border, infoData }) => {
           <List>
             {infoData.educations.map((education, index) => (
               <div key={index}>
-                {education.institute || education.degree ? (
+                {education.institute || education.degree_id ? (
                   <SubHeading>
-                    {education.institute}, {education.degree}
+                    {education.institute}, {education.degree_id}
                   </SubHeading>
                 ) : null}
                 {education.due_date ? <Date>2020-09-23</Date> : null}
