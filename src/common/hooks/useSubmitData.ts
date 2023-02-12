@@ -19,7 +19,14 @@ const usePostData = (infoData: DataTypes) => {
         ...infoData,
         image: file,
         experiences: removeEmptyObjects(infoData.experiences),
-        educations: removeEmptyObjects(infoData.educations),
+        educations: removeEmptyObjects(
+          infoData.educations.map((education) => {
+            return {
+              ...education,
+              degree_id: Number(education.degree_id),
+            };
+          })
+        ),
       };
 
       const response = await axios.post(
