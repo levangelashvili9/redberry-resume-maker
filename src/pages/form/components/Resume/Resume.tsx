@@ -20,6 +20,7 @@ import ThirdLogoSVG from "/assets/logo-3.svg";
 import { DataTypes } from "../../../../common/types";
 import React from "react";
 import { areAllValuesEmpty } from "../../../../common/utils/areAllValuesEmpty";
+import { findDegreeTitle } from "./utils/findDegreeTitle";
 
 type Props = {
   border?: boolean;
@@ -91,7 +92,7 @@ export const Resume: React.FC<Props> = ({ border, infoData }) => {
               <div key={index}>
                 {education.institute || education.degree_id ? (
                   <SubHeading>
-                    {education.institute}, {education.degree_id}
+                    {education.institute}, {findDegreeTitle(index, infoData)}
                   </SubHeading>
                 ) : null}
                 {education.due_date ? <Date>2020-09-23</Date> : null}
