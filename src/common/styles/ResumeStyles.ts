@@ -95,7 +95,7 @@ export const ResumeText = styled.p<ResumeTextProps>`
 `;
 
 export const SubHeading = styled.h4`
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
   line-height: 20px;
 
