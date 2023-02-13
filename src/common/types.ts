@@ -23,3 +23,8 @@ export type DataTypes = {
   educations: Educations[];
   image: string;
 };
+
+export type Degree = {
+  id: number;
+  title: string;
+};

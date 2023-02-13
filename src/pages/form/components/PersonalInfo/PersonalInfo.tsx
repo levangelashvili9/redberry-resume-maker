@@ -6,7 +6,6 @@ import {
   Container,
   DoubleInput,
   Input,
-  ErrorImg,
   Hint,
   InputElement,
   Label,
@@ -17,11 +16,9 @@ import {
   PageController,
   NextButton,
   InputDiv,
-  ValidatedImg,
 } from "../../../../common/styles/FormStyles";
 
-import ErrorSVG from "/assets/error.svg";
-import ValidatedSVG from "/assets/validated.svg";
+import { errorSvgHandler } from "../../../../common/utils/errorSvgHandler";
 
 type Props = {
   infoData: DataTypes;
@@ -57,6 +54,12 @@ export const PersonalInfo: React.FC<Props> = ({
     }
   };
 
+  const normalizeNumberInput = (value: any) => {
+    return value;
+    // .replace(/(\d{4})(\d{3})(\d{2})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5")
+    // .substr(0, 17);
+  };
+
   const onSubmit: SubmitHandler<DataTypes> = (data) => {
     setStep(1);
   };
@@ -80,15 +83,7 @@ export const PersonalInfo: React.FC<Props> = ({
               defaultValue={infoData.name}
               status={statusChanger(errors.name, infoData.name)}
             />
-            {errors.name ? (
-              <ErrorImg src={ErrorSVG} alt="" />
-            ) : (
-              <ValidatedImg
-                src={ValidatedSVG}
-                alt=""
-                isHidden={infoData.name === ""}
-              />
-            )}
+            {errorSvgHandler(errors.name, infoData.name)}
           </InputDiv>
           <Hint>მინიმუმ 2 ასო, ქართული ასოები</Hint>
         </InputElement>
@@ -109,15 +104,7 @@ export const PersonalInfo: React.FC<Props> = ({
               defaultValue={infoData.surname}
               status={statusChanger(errors.surname, infoData.surname)}
             />
-            {errors.surname ? (
-              <ErrorImg src={ErrorSVG} alt="" />
-            ) : (
-              <ValidatedImg
-                src={ValidatedSVG}
-                alt=""
-                isHidden={infoData.surname === ""}
-              />
-            )}
+            {errorSvgHandler(errors.surname, infoData.surname)}
           </InputDiv>
           <Hint>მინიმუმ 2 ასო, ქართული ასოები</Hint>
         </InputElement>
@@ -161,7 +148,7 @@ export const PersonalInfo: React.FC<Props> = ({
             placeholder="anzorr666@redberry.ge"
             {...register("email", {
               required: true,
-              pattern: /^.*@redberry.ge$/,
+              pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
               onChange: (e) => {
                 setInfoData({ ...infoData, email: e.target.value });
               },
@@ -169,15 +156,7 @@ export const PersonalInfo: React.FC<Props> = ({
             defaultValue={infoData.email}
             status={statusChanger(errors.email, infoData.email)}
           />
-          {errors.email ? (
-            <ErrorImg src={ErrorSVG} alt="" />
-          ) : (
-            <ValidatedImg
-              src={ValidatedSVG}
-              alt=""
-              isHidden={infoData.email === ""}
-            />
-          )}
+          {errorSvgHandler(errors.email, infoData.email)}
         </InputDiv>
         <Hint>უნდა მთავრდებოდეს @redberry.ge-ით</Hint>
       </InputElement>
@@ -189,23 +168,17 @@ export const PersonalInfo: React.FC<Props> = ({
             placeholder="+995 551 12 34 56"
             {...register("phone_number", {
               required: true,
-              // pattern: /^\+995\s5\d{2}\s\d{2}\s\d{2}\s\d{2}$/,
+              pattern: /^\+995\s5\d{2}\s\d{2}\s\d{2}\s\d{2}$/,
               onChange: (e) => {
+                const { value } = e.target;
+                e.target.value = normalizeNumberInput(value);
                 setInfoData({ ...infoData, phone_number: e.target.value });
               },
             })}
             defaultValue={infoData.phone_number}
             status={statusChanger(errors.phone_number, infoData.phone_number)}
           />
-          {errors.phone_number ? (
-            <ErrorImg src={ErrorSVG} alt="" />
-          ) : (
-            <ValidatedImg
-              src={ValidatedSVG}
-              alt=""
-              isHidden={infoData.phone_number === ""}
-            />
-          )}
+          {errorSvgHandler(errors.phone_number, infoData.phone_number)}
         </InputDiv>
         <Hint>უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს</Hint>
       </InputElement>

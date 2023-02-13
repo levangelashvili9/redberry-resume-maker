@@ -5,12 +5,11 @@ interface SuccessMessageProps {
 }
 
 export const Container = styled.div`
-  height: 100vh;
   position: relative;
+  padding: 20px 0;
 
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 
 export const ChevronImage = styled.img`

@@ -21,6 +21,7 @@ import { DataTypes } from "../../../../common/types";
 import React from "react";
 import { areAllValuesEmpty } from "../../../../common/utils/areAllValuesEmpty";
 import { findDegreeTitle } from "./utils/findDegreeTitle";
+import useFetchDropdown from "../../../../common/hooks/useFetchDropdown";
 
 type Props = {
   border?: boolean;
@@ -28,6 +29,8 @@ type Props = {
 };
 
 export const Resume: React.FC<Props> = ({ border, infoData }) => {
+  const degreesList = useFetchDropdown();
+
   return (
     <Container border={border}>
       <MainSection>
@@ -90,9 +93,10 @@ export const Resume: React.FC<Props> = ({ border, infoData }) => {
           <List>
             {infoData.educations.map((education, index) => (
               <div key={index}>
-                {education.institute || education.degree_id ? (
+                {education.degree_id || education.institute ? (
                   <SubHeading>
-                    {education.institute}, {findDegreeTitle(index, infoData)}
+                    {education.institute},{" "}
+                    {findDegreeTitle(index, infoData, degreesList)}
                   </SubHeading>
                 ) : null}
                 {education.due_date ? <Date>2020-09-23</Date> : null}

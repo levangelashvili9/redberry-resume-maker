@@ -11,8 +11,6 @@ import {
   Label,
   InputDiv,
   Input,
-  ErrorImg,
-  ValidatedImg,
   Hint,
   DoubleInput,
   Textarea,
@@ -25,9 +23,8 @@ import { statusChanger } from "../../../../common/utils/statusChanger";
 import { isRequired } from "../../../../common/utils/isRequired";
 import useSubmitData from "../../../../common/hooks/useSubmitData";
 
-import ErrorSVG from "/assets/error.svg";
-import ValidatedSVG from "/assets/validated.svg";
 import resetData from "../../../../common/utils/resetData";
+import { errorSvgHandler } from "../../../../common/utils/errorSvgHandler";
 
 type Props = {
   infoData: DataTypes;
@@ -116,14 +113,9 @@ export const Education: React.FC<Props> = ({
                   infoData.educations[index].institute
                 )}
               />
-              {errors.educations && errors.educations[index]?.institute ? (
-                <ErrorImg src={ErrorSVG} alt="" />
-              ) : (
-                <ValidatedImg
-                  src={ValidatedSVG}
-                  alt=""
-                  isHidden={infoData.educations[index].institute === ""}
-                />
+              {errorSvgHandler(
+                errors.educations && errors.educations[index]?.institute,
+                infoData.educations[index].institute
               )}
             </InputDiv>
             <Hint>მინიმუმ 2 სიმბოლო</Hint>

@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-
-type Degree = {
-  id: number;
-  title: string;
-};
+import { Degree } from "../types";
 
 const useFetchDropdown = () => {
   const [degreesList, setDegreesList] = useState<Degree[]>([]);

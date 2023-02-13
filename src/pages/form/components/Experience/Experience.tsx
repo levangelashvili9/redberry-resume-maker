@@ -10,8 +10,6 @@ import {
   Label,
   InputDiv,
   Input,
-  ErrorImg,
-  ValidatedImg,
   Hint,
   DoubleInput,
   Textarea,
@@ -21,8 +19,7 @@ import { DataTypes } from "../../../../common/types";
 import { statusChanger } from "../../../../common/utils/statusChanger";
 import { isRequired } from "../../../../common/utils/isRequired";
 
-import ErrorSVG from "/assets/error.svg";
-import ValidatedSVG from "/assets/validated.svg";
+import { errorSvgHandler } from "../../../../common/utils/errorSvgHandler";
 
 type Props = {
   infoData: DataTypes;
@@ -108,14 +105,9 @@ export const Experience: React.FC<Props> = ({
                   infoData.experiences[index].position
                 )}
               />
-              {errors.experiences && errors.experiences[index]?.position ? (
-                <ErrorImg src={ErrorSVG} alt="" />
-              ) : (
-                <ValidatedImg
-                  src={ValidatedSVG}
-                  alt=""
-                  isHidden={infoData.experiences[index].position === ""}
-                />
+              {errorSvgHandler(
+                errors.experiences && errors.experiences[index]?.position,
+                infoData.experiences[index].position
               )}
             </InputDiv>
             <Hint>მინიმუმ 2 სიმბოლო</Hint>
@@ -145,14 +137,9 @@ export const Experience: React.FC<Props> = ({
                   infoData.experiences[index].employer
                 )}
               />
-              {errors.experiences && errors.experiences[index]?.employer ? (
-                <ErrorImg src={ErrorSVG} alt="" />
-              ) : (
-                <ValidatedImg
-                  src={ValidatedSVG}
-                  alt=""
-                  isHidden={infoData.experiences[index].employer === ""}
-                />
+              {errorSvgHandler(
+                errors.experiences && errors.experiences[index]?.employer,
+                infoData.experiences[index].employer
               )}
             </InputDiv>
             <Hint>მინიმუმ 2 სიმბოლო</Hint>

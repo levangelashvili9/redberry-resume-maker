@@ -18,6 +18,7 @@ const usePostData = (infoData: DataTypes) => {
       const modifiedData = {
         ...infoData,
         image: file,
+        phone_number: infoData.phone_number.replace(/\s/g, ""),
         experiences: removeEmptyObjects(infoData.experiences),
         educations: removeEmptyObjects(
           infoData.educations.map((education) => {
