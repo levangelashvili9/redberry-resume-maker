@@ -38,7 +38,12 @@ export const FinishedResume: React.FC<Props> = ({ border, state }) => {
           </ContactInfo>
           <ContactInfo margin={"34px"}>
             <img src={PhoneSVG} alt="" />
-            <ContactInfoText>{state.phone_number}</ContactInfoText>
+            <ContactInfoText>
+              {state.phone_number.replace(
+                /(\d{3})(\d{3})(\d{2})(\d{2})(\d{2})/,
+                "$1 $2 $3 $4 $5"
+              )}
+            </ContactInfoText>
           </ContactInfo>
           <Heading>ჩემ შესახებ</Heading>
           <ResumeText>{state.about_me}</ResumeText>

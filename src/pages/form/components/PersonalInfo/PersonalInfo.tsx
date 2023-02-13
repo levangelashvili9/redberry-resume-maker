@@ -54,12 +54,6 @@ export const PersonalInfo: React.FC<Props> = ({
     }
   };
 
-  const normalizeNumberInput = (value: any) => {
-    return value;
-    // .replace(/(\d{4})(\d{3})(\d{2})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5")
-    // .substr(0, 17);
-  };
-
   const onSubmit: SubmitHandler<DataTypes> = (data) => {
     setStep(1);
   };
@@ -170,8 +164,6 @@ export const PersonalInfo: React.FC<Props> = ({
               required: true,
               pattern: /^\+995\s5\d{2}\s\d{2}\s\d{2}\s\d{2}$/,
               onChange: (e) => {
-                const { value } = e.target;
-                e.target.value = normalizeNumberInput(value);
                 setInfoData({ ...infoData, phone_number: e.target.value });
               },
             })}

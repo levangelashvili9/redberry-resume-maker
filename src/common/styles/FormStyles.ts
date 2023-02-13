@@ -116,6 +116,7 @@ export const DoubleInput = styled.div`
 
 export const UploadPic = styled.div`
   display: flex;
+  align-items: center;
   gap: 20px;
 
   margin: 20px 0;
