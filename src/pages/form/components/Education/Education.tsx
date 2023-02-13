@@ -80,8 +80,8 @@ export const Education: React.FC<Props> = ({
     });
   };
 
-  const onSubmit: SubmitHandler<DataTypes> = (data) => {
-    postData();
+  const onSubmit: SubmitHandler<DataTypes> = async (data) => {
+    await postData();
     resetData(setInfoData, setStep);
   };
 
@@ -164,6 +164,7 @@ export const Education: React.FC<Props> = ({
                   type="date"
                   {...register(`educations.${index}.due_date`, {
                     required: isRequired(infoData.educations[index], index),
+                    maxLength: 10,
                     onChange: (e) => {
                       setInfoData({
                         ...infoData,
