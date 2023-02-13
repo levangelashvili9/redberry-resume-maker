@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/" },
+    { "source": "/form", "destination": "/form" },
+    { "source": "/resume", "destination": "/resume" }
+  ]
+}
