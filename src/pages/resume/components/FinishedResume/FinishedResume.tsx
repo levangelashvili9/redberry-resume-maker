@@ -14,7 +14,6 @@ import {
   List,
 } from "../../../../common/styles/ResumeStyles";
 
-import { useLocation } from "react-router-dom";
 import EmailSVG from "/assets/email.svg";
 import PhoneSVG from "/assets/phone.svg";
 import ThirdLogoSVG from "/assets/logo-3.svg";
@@ -22,11 +21,10 @@ import React from "react";
 
 type Props = {
   border?: boolean;
+  state: any;
 };
 
-export const FinishedResume: React.FC<Props> = ({ border }) => {
-  const { state } = useLocation();
-
+export const FinishedResume: React.FC<Props> = ({ border, state }) => {
   return (
     <Container border={border}>
       <MainSection>
