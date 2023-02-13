@@ -153,6 +153,7 @@ export const Experience: React.FC<Props> = ({
                   type="date"
                   {...register(`experiences.${index}.start_date`, {
                     required: isRequired(infoData.experiences[index], index),
+                    maxLength: 10,
                     onChange: (e) => {
                       setInfoData({
                         ...infoData,
@@ -179,6 +180,7 @@ export const Experience: React.FC<Props> = ({
                   type="date"
                   {...register(`experiences.${index}.due_date`, {
                     required: isRequired(infoData.experiences[index], index),
+                    maxLength: 10,
                     onChange: (e) => {
                       setInfoData({
                         ...infoData,
